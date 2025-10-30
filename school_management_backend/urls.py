@@ -11,6 +11,7 @@ urlpatterns = [
     path('api/library/', include('library.urls')), 
     path('api/students/', include('students.urls')), 
     path('api/transport/', include('transport.urls')), 
+    path('api/users/', include('users.urls')), 
 
 
 ]
