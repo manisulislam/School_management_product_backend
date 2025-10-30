@@ -1,5 +1,5 @@
 from django.db import models
-
+from academics.models import ClassRoom
 # Create your models here.
 class Student(models.Model):
     student_id = models.CharField(max_length=20, unique=True)
@@ -13,7 +13,7 @@ class Student(models.Model):
     guardian_name = models.CharField(max_length=100)
     guardian_phone = models.CharField(max_length=15)
     admission_date = models.DateField(auto_now_add=True)
-    class_assigned = models.ForeignKey("ClassRoom", on_delete=models.SET_NULL, null=True)
+    class_assigned = models.ForeignKey("academics.ClassRoom", on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"

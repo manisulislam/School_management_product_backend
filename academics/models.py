@@ -1,12 +1,12 @@
 from django.db import models
-from students import Teacher, Student
+
 # Create your models here.
 
 class ClassRoom(models.Model):
     name = models.CharField(max_length=20)  # e.g. "Grade 10 - A"
     section = models.CharField(max_length=5, blank=True, null=True)
     capacity = models.IntegerField(default=40)
-    class_teacher = models.ForeignKey("Teacher", on_delete=models.SET_NULL, null=True, related_name="classroom_teacher")
+    class_teacher = models.ForeignKey("students.Teacher", on_delete=models.SET_NULL, null=True, related_name="classroom_teacher")
 
     def __str__(self):
         return self.name
@@ -15,14 +15,14 @@ class ClassRoom(models.Model):
 class Subject(models.Model):
     code = models.CharField(max_length=10, unique=True)
     name = models.CharField(max_length=100)
-    teacher = models.ForeignKey("Teacher", on_delete=models.SET_NULL, null=True)
+    teacher = models.ForeignKey("students.Teacher", on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         return self.name
 
 
 class Attendance(models.Model):
-    student = models.ForeignKey("Student", on_delete=models.CASCADE)
+    student = models.ForeignKey("students.Student", on_delete=models.CASCADE)
     date = models.DateField()
     status = models.CharField(max_length=10, choices=[("Present", "Present"), ("Absent", "Absent"), ("Leave", "Leave")])
 
@@ -40,7 +40,7 @@ class Exam(models.Model):
 
 
 class Result(models.Model):
-    student = models.ForeignKey("Student", on_delete=models.CASCADE)
+    student = models.ForeignKey("students.Student", on_delete=models.CASCADE)
     subject = models.ForeignKey("Subject", on_delete=models.CASCADE)
     exam = models.ForeignKey("Exam", on_delete=models.CASCADE)
     marks_obtained = models.DecimalField(max_digits=5, decimal_places=2)
@@ -54,7 +54,7 @@ class Announcement(models.Model):
     title = models.CharField(max_length=200)
     message = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
-    created_by = models.ForeignKey("Teacher", on_delete=models.SET_NULL, null=True)
+    created_by = models.ForeignKey("students.Teacher", on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         return self.title
@@ -62,7 +62,7 @@ class Announcement(models.Model):
 class Timetable(models.Model):
     classroom = models.ForeignKey("ClassRoom", on_delete=models.CASCADE)
     subject = models.ForeignKey("Subject", on_delete=models.CASCADE)
-    teacher = models.ForeignKey("Teacher", on_delete=models.CASCADE)
+    teacher = models.ForeignKey("students.Teacher", on_delete=models.CASCADE)
     day_of_week = models.CharField(max_length=10, choices=[
         ("Monday", "Monday"),
         ("Tuesday", "Tuesday"),

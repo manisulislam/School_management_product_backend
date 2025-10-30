@@ -1,5 +1,5 @@
 from django.db import models
-from students import Student
+
 # Create your models here.
 class BusRoute(models.Model):
     route_name = models.CharField(max_length=100)
@@ -12,6 +12,6 @@ class BusRoute(models.Model):
 
 
 class BusAssignment(models.Model):
-    student = models.ForeignKey("Student", on_delete=models.CASCADE)
+    student = models.ForeignKey("students.Student", on_delete=models.CASCADE)
     route = models.ForeignKey("BusRoute", on_delete=models.CASCADE)
     pickup_point = models.CharField(max_length=100)

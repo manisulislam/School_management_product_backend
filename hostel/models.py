@@ -14,7 +14,7 @@ class Room(models.Model):
     hostel = models.ForeignKey("Hostel", on_delete=models.CASCADE)
     room_number = models.CharField(max_length=20)
     capacity = models.IntegerField()
-    students = models.ManyToManyField("Student", blank=True)
+    students = models.ManyToManyField("students.Student", blank=True)
 
     def __str__(self):
         return f"{self.hostel.name} - {self.room_number}"
